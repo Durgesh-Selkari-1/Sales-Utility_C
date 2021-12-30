@@ -4,12 +4,18 @@ import logo from './../../Assets/Images/logo.jpeg'
 import axios from 'axios';
 
 export default function ContactForm() {
+
+
     const [fullname, setFullname] = useState("");
     const [companyname, setCompanyname] = useState("");
     const [email, setEmail] = useState("");
     const [subject, setSubject]=useState("");
     const [message, setMessage] = useState("");
     const [check1, setCheck1] = useState("");
+
+
+  
+
     
 
     

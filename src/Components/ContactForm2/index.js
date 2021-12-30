@@ -2,7 +2,7 @@
 import React from 'react';
 import logo from './../../Assets/Images/logo.jpeg';
 import { Component } from 'react/cjs/react.production.min';
-import axios from 'axios';
+import Axios from 'axios';
 
 
 class ContactForm2 extends Component {
@@ -20,8 +20,8 @@ class ContactForm2 extends Component {
             email: "",
             subject: "",
             message: "",
-            // check1: "",
-            // check2: true,
+            check1: false,
+            check2: true,
             touched:{
                 full_name:false,                
             }
@@ -36,18 +36,17 @@ class ContactForm2 extends Component {
         const target = event.target;
         const value = target.type==='checkbox'?target.checked:target.value;
         const name = target.name;
-        console.log(value);
-
         this.setState({
             [name]:value
         })
+       
 
     }
 
     handleSubmit(event){
         console.log("Current State is:" + JSON.stringify(this.state));
         event.preventDefault();
-        axios({
+        Axios({
           method: "POST",
           url:"https://salesutilityc.herokuapp.com/api/contact",
           data:  this.state
@@ -85,8 +84,8 @@ class ContactForm2 extends Component {
     }
 
     resetForm(){
-        this.setState({full_name:'', company_name: '', email:'',subject:'',message:''})
-        // this.setState({full_name:'', company_name: '', email:'',subject:'',message:'', check1:'', check2:''})
+        
+        this.setState({full_name:'', company_name: '', email:'',subject:'',message:'', check1:'', check2:''})
       }
 
     render(){
@@ -95,7 +94,7 @@ class ContactForm2 extends Component {
 
 
 
-
+        console.log(this.state);
 
     return(
         <>
@@ -250,8 +249,8 @@ class ContactForm2 extends Component {
                         <input 
                             type="checkbox"
                             name="check1"
-                            // checked={this.state.check1}
-                            // onChange={this.handleInputChange}
+                            checked={this.state.check1}
+                            onChange={this.handleInputChange}
                             className="form-check-input"
                             id="Check1" />
                         <label className="form-check-label" for="exampleCheck1" style={{ color: '#0076a8', fontSize: 'small' }}>Send copy to my email</label>
@@ -260,7 +259,10 @@ class ContactForm2 extends Component {
                         <input 
                         type="checkbox"
                         name='check2'
-                        checked
+                        checked={this.state.check2}
+                        
+                       
+                        onChange={this.handleInputChange}
                          className="form-check-input" 
                          id="Check2" 
                           />
