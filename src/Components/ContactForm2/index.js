@@ -20,7 +20,7 @@ class ContactForm2 extends Component {
             email: "",
             subject: "",
             message: "",
-            check1: false,
+            checkbox: false,
             check2: true,
             touched:{
                 full_name:false,                
@@ -85,7 +85,7 @@ class ContactForm2 extends Component {
 
     resetForm(){
         
-        this.setState({full_name:'', company_name: '', email:'',subject:'',message:'', check1:'', check2:''})
+        this.setState({full_name:'', company_name: '', email:'',subject:'',message:'', checkbox:'', check2:''})
       }
 
     render(){
@@ -248,12 +248,12 @@ class ContactForm2 extends Component {
                     <div className="mb-3 form-check">
                         <input 
                             type="checkbox"
-                            name="check1"
-                            checked={this.state.check1}
+                            name="checkbox"
+                            checked={this.state.checkbox}
                             onChange={this.handleInputChange}
                             className="form-check-input"
-                            id="Check1" />
-                        <label className="form-check-label" for="exampleCheck1" style={{ color: '#0076a8', fontSize: 'small' }}>Send copy to my email</label>
+                            id="checkbox" />
+                        <label className="form-check-label" for="examplecheckbox" style={{ color: '#0076a8', fontSize: 'small' }}>Send copy to my email</label>
                     </div>
                     <div className="mb-3 form-check">
                         <input 
