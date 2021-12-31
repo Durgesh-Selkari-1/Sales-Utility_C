@@ -28,12 +28,14 @@ class ContactForm2 extends Component {
                 full_name:false, 
                 email:false               
             }
+            
 
         }
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
         this.handleBlur=this.handleBlur.bind(this);
-    }
+        
+    };
 
     handleInputChange(event){
         const target = event.target;
@@ -50,6 +52,7 @@ class ContactForm2 extends Component {
         console.log("Current State is:" + JSON.stringify(this.state));
         event.preventDefault();
         // alert("Form submitted successfully.");
+        
         swal("Sales Utility_C", "Form submitted successfully.", "success");
         Axios({
           method: "POST",
@@ -307,23 +310,6 @@ class ContactForm2 extends Component {
     
 
 
-
-<div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Sales Utility_C</h5>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div className="modal-body">
-        <p className='text-success'>
-            Form sunmitted successfully.
-        </p>
-      </div>
-     
-    </div>
-  </div>
-</div>
 
 
 
