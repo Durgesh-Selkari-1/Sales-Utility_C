@@ -48,18 +48,19 @@ class ContactForm2 extends Component {
 
     handleSubmit(event){
         console.log("Current State is:" + JSON.stringify(this.state));
-        // alert("Form submitted successfully.");
-        swal("Sales Utility_C", "Form submitted successfully.", "success");
         event.preventDefault();
+        // alert("Form submitted successfully.");
+        // swal("Sales Utility_C", "Form submitted successfully.", "success");
+        
         Axios({
           method: "POST",
           url:"https://salesutilityc.herokuapp.com/api/contact",
           data:  this.state
         }).then((response)=>{
-          if (response.data.status === 'success') {
+          if (response.data.status === 200) {
             alert("Message Sent.");
             this.data.resetForm()
-          } else if(response.data.status === 'fail') {
+          } else if(response.data.status === 503) {
             alert("Message failed to send.")
           }
         })
