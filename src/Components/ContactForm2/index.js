@@ -24,16 +24,16 @@ class ContactForm2 extends Component {
             message: "",
             checkbox: false,
             check2: true,
-            touched:{
-                full_name:false, 
-                email:false               
-            }
+            // touched:{
+            //     full_name:false, 
+            //     email:false               
+            // }
             
 
         }
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleInputChange=this.handleInputChange.bind(this);
-        this.handleBlur=this.handleBlur.bind(this);
+        // this.handleBlur=this.handleBlur.bind(this);
         
     };
 
@@ -51,24 +51,24 @@ class ContactForm2 extends Component {
     handleSubmit(event){
         console.log("Current State is:" + JSON.stringify(this.state));
         event.preventDefault();
-        // alert("Form submitted successfully.");
-        
-        swal("Sales Utility_C", "Form submitted successfully.", "success");
+     
         Axios({
           method: "POST",
           url:"https://salesutilityc.herokuapp.com/api/contact",
           data:this.state
         }).then((response)=>{
-          if (response.data.status === 200) {
-            alert("Message Sent.");
-            this.data.resetForm()
-          } else if(response.data.status === 503) {
+          if (response.status === 200) {
+            // alert("Form submitted successfully.");
+            swal("Sales Utility_C", "Form submitted successfully.", "success");
+            this.resetForm()
+          } else if(response.status === 503) {
             alert("Message failed to send.")
           }
         })
+        
       }
 
-      resetForm(){
+      resetForm() {
         
         this.setState({full_name:"", company_name: "", email:"",subject:"",message:"", checkbox:"", check2:""})
       }
@@ -82,34 +82,34 @@ class ContactForm2 extends Component {
 
 
     
-    handleBlur=(field)=>(evt)=>{
-        this.setState({
-            touched:{...this.state.touched, [field]:true}
-        });
-    }
-    validate(full_name,email){
-        const errors={
-            full_name:'',
-            email:''
-        };
-        if(this.state.touched.full_name && full_name.length<3)
-            errors.full_name='Full name should be greater than 2 characters';
-        else if (this.state.touched.full_name && full_name.length>20)
-             errors.full_name='Full name should be less than 20 characters';
+    // handleBlur=(field)=>(evt)=>{
+    //     this.setState({
+    //         touched:{...this.state.touched, [field]:true}
+    //     });
+    // }
+    // validate(full_name,email){
+    //     const errors={
+    //         full_name:'',
+    //         email:''
+    //     };
+    //     if(this.state.touched.full_name && full_name.length<3)
+    //         errors.full_name='Full name should be greater than 2 characters';
+    //     else if (this.state.touched.full_name && full_name.length>20)
+    //          errors.full_name='Full name should be less than 20 characters';
         
       
-        if(this.state.touched.email && email.split('').filter(x=>x==='@').length !==1)
-            errors.email ='Email should contain a @'; 
+    //     if(this.state.touched.email && email.split('').filter(x=>x==='@').length !==1)
+    //         errors.email ='Email should contain a @'; 
 
-        return errors;
+    //     return errors;
 
-    }
+    // }
 
     
 
     render(){
 
-        const errors = this.validate(this.state.full_name,this.state.email);
+        // const errors = this.validate(this.state.full_name,this.state.email);
         console.log(this.state);
 
     return(
@@ -135,16 +135,16 @@ class ContactForm2 extends Component {
                                 name="full_name"
                                 value={this.state.full_name}
                                 onChange={this.handleInputChange}
-                                onBlur={this.handleBlur('full_name')}
-                                valid={errors.full_name===''}
-                                invald={errors.full_name !==''}
+                                // onBlur={this.handleBlur('full_name')}
+                                // valid={true}
+                                // invald={errors.full_name !==''}
                                 required
                                 className="form-control rounded-0"
                                 placeholder="Full Name"
                             />
-                            <p className='text-danger'>
+                            {/* <p className='text-danger'>
                        <small> {errors.full_name}</small>    
-                            </p>
+                            </p> */}
                           
                           
                         </div>
@@ -169,16 +169,16 @@ class ContactForm2 extends Component {
                             type="email"
                             name="email"
                             value={this.state.email}
-                            onBlur={this.handleBlur('email')}
-                            valid={errors.email===''}
-                            invald={errors.email!==''}
+                            // onBlur={this.handleBlur('email')}
+                            // valid={true}
+                            // invald={errors.email!==''}
                             onChange={this.handleInputChange}
                             required
                             className="form-control rounded-0"
                             placeholder="Email" />
-                               <p className='text-danger'>
+                               {/* <p className='text-danger'>
                        <small> {errors.email}</small>    
-                            </p>
+                            </p> */}
                           
                         {/* <p className='p-0 m-0 ms-2'>To change your Contact Email go to your <a href='#' className='' style={{ color: '#0076a8', textDecoration: 'none' }}>Account page</a>.</p> */}
 
@@ -297,7 +297,7 @@ class ContactForm2 extends Component {
                      type="submit"
                     //  data-bs-toggle="modal" 
                     //  data-bs-target="#exampleModal"
-                     
+                    
                      className="btn btn-primary btn-danger border-0 rounded-0"><span className='mx-2'>Submit</span></button>
                 </form>
 
