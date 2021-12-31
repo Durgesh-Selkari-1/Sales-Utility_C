@@ -50,12 +50,11 @@ class ContactForm2 extends Component {
         console.log("Current State is:" + JSON.stringify(this.state));
         event.preventDefault();
         // alert("Form submitted successfully.");
-        // swal("Sales Utility_C", "Form submitted successfully.", "success");
-        
+        swal("Sales Utility_C", "Form submitted successfully.", "success");
         Axios({
           method: "POST",
           url:"https://salesutilityc.herokuapp.com/api/contact",
-          data:  this.state
+          data:this.state
         }).then((response)=>{
           if (response.data.status === 200) {
             alert("Message Sent.");
@@ -65,6 +64,13 @@ class ContactForm2 extends Component {
           }
         })
       }
+
+      resetForm(){
+        
+        this.setState({full_name:"", company_name: "", email:"",subject:"",message:"", checkbox:"", check2:""})
+      }
+      
+     
 
     
 
@@ -96,10 +102,7 @@ class ContactForm2 extends Component {
 
     }
 
-    resetForm(){
-        
-        this.setState({full_name:"", company_name: "", email:"",subject:"",message:"", checkbox:"", check2:""})
-      }
+    
 
     render(){
 
@@ -115,7 +118,7 @@ class ContactForm2 extends Component {
             <div className='col-12 d-flex justify-content-center'>
 
 
-                <form className='mx-auto'novalidate method='POST' onSubmit={this.handleSubmit.bind(this)} >
+                <form className='mx-auto' method='POST' onSubmit={this.handleSubmit.bind(this)} >
                     <div className="mb-3">
                         <h3 className='m-0  p-0' style={{ color: '#bb2428' }}><img src={logo} alt="iView" className='img-fluid' /> Sales Utility_C</h3>
                         <hr className='' style={{ color: '#0076a8' }} />
