@@ -58,7 +58,7 @@ export default function ContactForm() {
 
                             </div>
                             <div className="mb-3">
-                                <label for="exampleInputPassword1" className="form-label">Contact Email</label>
+                                <label for="exampleInputPassword1" className="form-label">Contact Email<span className='text-danger'>*</span></label>
                                 <input type="email" value={email}  onChange={(e) => setEmail(e.target.value)}  required className="form-control rounded-0" placeholder="Email" aria-label="" />
                                 <p className='p-0 m-0 ms-2'>To change your Contact Email go to your <a href='#' className='' style={{color:'#0076a8',textDecoration:'none'}}>Account page</a>.</p>
 
@@ -134,6 +134,7 @@ export default function ContactForm() {
                 </div>
 
             </div>
+            
 
         </>
     )

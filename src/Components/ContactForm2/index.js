@@ -3,6 +3,8 @@ import React from 'react';
 import logo from './../../Assets/Images/logo.jpeg';
 import { Component } from 'react/cjs/react.production.min';
 import Axios from 'axios';
+import swal from 'sweetalert';
+
 
 
 class ContactForm2 extends Component {
@@ -23,7 +25,8 @@ class ContactForm2 extends Component {
             checkbox: false,
             check2: true,
             touched:{
-                full_name:false,                
+                full_name:false, 
+                email:false               
             }
 
         }
@@ -45,6 +48,8 @@ class ContactForm2 extends Component {
 
     handleSubmit(event){
         console.log("Current State is:" + JSON.stringify(this.state));
+        // alert("Form submitted successfully.");
+        swal("Sales Utility_C", "Form submitted successfully.", "success");
         event.preventDefault();
         Axios({
           method: "POST",
@@ -53,12 +58,14 @@ class ContactForm2 extends Component {
         }).then((response)=>{
           if (response.data.status === 'success') {
             alert("Message Sent.");
-            this.resetForm()
+            this.data.resetForm()
           } else if(response.data.status === 'fail') {
             alert("Message failed to send.")
           }
         })
       }
+
+    
 
 
 
@@ -72,12 +79,17 @@ class ContactForm2 extends Component {
     }
     validate(full_name,email){
         const errors={
-            full_name:''
+            full_name:'',
+            email:''
         };
-        if(this.state.touched.full_name && full_name.length<2)
-        errors.full_name='Full name should be greater than 3 characters';
+        if(this.state.touched.full_name && full_name.length<3)
+            errors.full_name='Full name should be greater than 2 characters';
         else if (this.state.touched.full_name && full_name.length>20)
-        errors.full_name='Full name should be less than 20 characters';
+             errors.full_name='Full name should be less than 20 characters';
+        
+      
+        if(this.state.touched.email && email.split('').filter(x=>x==='@').length !==1)
+            errors.email ='Email should contain a @'; 
 
         return errors;
 
@@ -85,15 +97,12 @@ class ContactForm2 extends Component {
 
     resetForm(){
         
-        this.setState({full_name:'', company_name: '', email:'',subject:'',message:'', checkbox:'', check2:''})
+        this.setState({full_name:"", company_name: "", email:"",subject:"",message:"", checkbox:"", check2:""})
       }
 
     render(){
 
-        const errors = this.validate(this.state.full_name);
-
-
-
+        const errors = this.validate(this.state.full_name,this.state.email);
         console.log(this.state);
 
     return(
@@ -105,7 +114,7 @@ class ContactForm2 extends Component {
             <div className='col-12 d-flex justify-content-center'>
 
 
-                <form className='mx-auto' method='POST' onSubmit={this.handleSubmit.bind(this)} >
+                <form className='mx-auto'novalidate method='POST' onSubmit={this.handleSubmit.bind(this)} >
                     <div className="mb-3">
                         <h3 className='m-0  p-0' style={{ color: '#bb2428' }}><img src={logo} alt="iView" className='img-fluid' /> Sales Utility_C</h3>
                         <hr className='' style={{ color: '#0076a8' }} />
@@ -153,9 +162,17 @@ class ContactForm2 extends Component {
                             type="email"
                             name="email"
                             value={this.state.email}
+                            onBlur={this.handleBlur('email')}
+                            valid={errors.email===''}
+                            invald={errors.email!==''}
                             onChange={this.handleInputChange}
-                            required className="form-control rounded-0"
+                            required
+                            className="form-control rounded-0"
                             placeholder="Email" />
+                               <p className='text-danger'>
+                       <small> {errors.email}</small>    
+                            </p>
+                          
                         {/* <p className='p-0 m-0 ms-2'>To change your Contact Email go to your <a href='#' className='' style={{ color: '#0076a8', textDecoration: 'none' }}>Account page</a>.</p> */}
 
                     </div>
@@ -207,6 +224,8 @@ class ContactForm2 extends Component {
                                 </label>
                             </div>
                             <div className="form-check">
+                               
+                                <label className="form-check-label" for="flexRadioDefault1" style={{ color: '#0076a8' }}>
                                 <input 
                                 name="subject"
                                 value="Other"
@@ -216,7 +235,6 @@ class ContactForm2 extends Component {
                                     required 
                                     id="flexRadioDefault1" 
                                     />
-                                <label className="form-check-label" for="flexRadioDefault1" style={{ color: '#0076a8' }}>
                                     Other
                                 </label>
                             </div>
@@ -270,17 +288,42 @@ class ContactForm2 extends Component {
                     </div>
                     <button
                      type="submit"
+                    //  data-bs-toggle="modal" 
+                    //  data-bs-target="#exampleModal"
+                     
                      className="btn btn-primary btn-danger border-0 rounded-0"><span className='mx-2'>Submit</span></button>
                 </form>
 
             </div>
 
         </div>
-        <div>
-
-        </div>
-
+       
     </div>
+
+    
+
+
+
+<div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Sales Utility_C</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+        <p className='text-success'>
+            Form sunmitted successfully.
+        </p>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
         </>
