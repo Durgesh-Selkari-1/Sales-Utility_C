@@ -1,0 +1,9 @@
+.Sidebar-dev{
+    left:0;
+    top:0;
+    position: fixed;
+    overflow-y: scroll;
+    scrollbar-width: none;
+   
+
+}
