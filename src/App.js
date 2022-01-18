@@ -1,14 +1,16 @@
 import React from 'react';
-import ContactForm from './Components/ContactForm';
-import ContactForm2 from './Components/ContactForm2';
-import ContactFormApi from './Components/Dashboard/ContactFormApi';
-import ContactFormApi2 from './Components/Dashboard/ContactFormApi2';
-import Sidebar from './Components/Sidebar/Sidebar';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ContactFormT from './Components/ContactForm-1';
 function App() {
   return (
    <>
- {/* <ContactFormApi2/> */}
-<ContactForm/>
+ <Router>
+      <div className="App">
+       <ContactFormT/>
+  
+      </div>
+    </Router>
+
    </>
   );
 }
